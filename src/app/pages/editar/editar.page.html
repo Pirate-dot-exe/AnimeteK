@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Anime</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <form [formGroup] = "formEditar" (ngSubmit)="submitForm()">
+      <ion-item>
+        <ion-input placeholder="Título" formControlName="titulo" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Número Total de Episódios" 
+          formControlName="totalEp" type="number"></ion-input>
+        <ion-input placeholder="Número de Episódios Assistidos"
+          formControlName="assistidosEp" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Selecione os gêneros" [multiple]="true" formControlName="generos">
+          <ion-select-option 
+            *ngFor="let gender of genderList" 
+            value="{{gender}}">{{gender}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Nota" formControlName="nota" okText="Ok">
+          <ion-select-option *ngFor="let nota of notas" value="{{nota}}">{{nota}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-button size="default" color="success" shape="round">
+          <input type="file" formControlName="imagem" (change)="uploadFile($event.target)" />
+        </ion-button>
+      </ion-item>
+
+      <ion-button type="submit">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </ion-list>
+
+  <ion-button (click)="excluirAnime()">
+    <ion-icon name="trash"></ion-icon>
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-app>
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>AnimeteKudasai</ion-list-header>
+          <ion-note>Olá Visitante</ion-note>  <!--Email possível cadastro-->
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item  
+            (click)="redirect(p.url)"
+            routerDirection="root"
+            [routerLink]="[p.url]"
+            lines="none" 
+            detail="false" 
+            routerLinkActive="selected">
+              <ion-icon slot="start" 
+              [ios]="p.icon + '-outline'" 
+              [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <!-- Default Toggle -->
+        <ion-item>
+          <ion-label>Safe Search</ion-label>
+          <ion-toggle></ion-toggle>
+        </ion-item>
+    
+        <ion-button expand="block" type="search">Buscar</ion-button>
+
+        <ion-list id="labels-list">
+          <ion-list-header>Tags</ion-list-header>
+
+          <ion-item *ngFor="let label of labels" lines="none">
+            <ion-icon slot="start" 
+            ios="bookmark-outline" 
+            md="bookmark-sharp"></ion-icon>
+            <ion-label>{{ label }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

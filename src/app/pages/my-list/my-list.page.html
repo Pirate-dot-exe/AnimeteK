@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Minha Lista</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<style>
+  .cnt{
+    text-align: center;
+  }
+  .rgt{
+    margin-right: auto;
+  }
+  
+</style>
+
+<ion-content>
+
+  <ion-text class= "cnt">
+    <h1 >Bem Vindo a sua lista!</h1>
+  </ion-text>
+
+  <ion-searchbar (ionChange)="searchMyAnime( $event )"></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngFor="let anime of meus_animes | filtro: searchItems">
+      <ion-label>
+        <ion-img [src]="anime.imageLink"></ion-img>
+      </ion-label>
+      <ion-label class="cnt">
+          <h2>{{anime.titulo}}</h2>
+          <h3>--Tags--</h3>
+          <ion-button *ngFor="let tags of anime.generos">{{tags}}</ion-button>
+          <h3>Assistidos: [{{anime.assistidosEp}}/{{anime.totalEp}}]</h3>
+          <h3>Nota: {{anime.nota}}</h3>
+          <h3>Início: {{anime.data.split('T')[0]}}</h3>
+          <ion-button (click)="irParaEdicao(anime)">
+            <ion-icon name="pencil"></ion-icon>
+          </ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="left" slot="fixed">
+    <ion-button expand="full" shape="round" (click)="irParaAdicionar()">
+      Novo Anime
+    </ion-button>
+  </ion-fab>
+
+</ion-content>
