@@ -35,6 +35,10 @@ export class MyListPage {
   searchMyAnime( event ){
     this.searchItems = event.detail.value;
   }
+  searchByTag( event ){
+    console.log("event: ", event)
+    this.searchItems = event.detail.value;
+  }
 
   irParaAdicionar(){
     this.router.navigate(['/adicionar']);

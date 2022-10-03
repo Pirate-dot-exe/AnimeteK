@@ -30,7 +30,8 @@
       <ion-label class="cnt">
           <h2>{{anime.titulo}}</h2>
           <h3>--Tags--</h3>
-          <ion-button *ngFor="let tags of anime.generos">{{tags}}</ion-button>
+          <ion-button disabled="true" *ngFor="let tags of anime.generos" value="{{tags}}" 
+            (click)="searchByTag($event)">{{tags}}</ion-button>
           <h3>Assistidos: [{{anime.assistidosEp}}/{{anime.totalEp}}]</h3>
           <h3>Nota: {{anime.nota}}</h3>
           <h3>Início: {{anime.data.split('T')[0]}}</h3>
