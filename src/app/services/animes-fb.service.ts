@@ -53,6 +53,7 @@ export class AnimesFBService {
       })
   }
   excluirAnime(anime: Anime){
+    this.excluirImagem(anime.imageLink)
     return this.angularFirestore.collection(this.PATH).doc(anime.id).delete();
   }
 
