@@ -38,7 +38,8 @@ export class AnimesFBService {
         assistidosEp: anime.assistidosEp,
       })
   }
-  editarAnime(anime: Anime, id: string){
+  editarAnime(anime: Anime, id: string, newPath: string){
+    console.log("EditarAnime: " , newPath)
     return this.angularFirestore
       .collection(this.PATH)
       .doc(id)
@@ -48,13 +49,14 @@ export class AnimesFBService {
         nota: anime.nota,
         totalEp: anime.totalEp,
         assistidosEp: anime.assistidosEp,
+        imageLink: newPath
       })
   }
   excluirAnime(anime: Anime){
     return this.angularFirestore.collection(this.PATH).doc(anime.id).delete();
   }
 
-  atualizarImagem(imagem: any, anime: Anime, lastPath: string){
+  atualizarImagem(imagem: any, anime: Anime, lastPath: string, id: string){
     this.excluirImagem(lastPath)
     const file = imagem.item(0);
     if(file.type.split('/')[0] !== 'image'){  //Verifica se é do tipo imagem ("/image")
@@ -69,11 +71,10 @@ export class AnimesFBService {
         let imageLink = fileRef.getDownloadURL()
         imageLink.subscribe((resp) => {
           anime.imageLink = resp
-          this.editarAnime(anime, anime.id)
+          this.editarAnime(anime, id, resp)
         })
       })
     ).subscribe()
-    console.log("animeLink PósAlterações:" , anime.imageLink)
     return task;
   }
 
@@ -99,6 +100,7 @@ export class AnimesFBService {
   }
 
   excluirImagem(path: string){
+    console.log("Excluindo imagem: ", path)
     const storage = getStorage();
     const reference = ref(storage, path);
     deleteObject(reference).then(() => {}).catch((error) => {

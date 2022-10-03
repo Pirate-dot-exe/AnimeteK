@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Anime } from 'src/app/models/anime';
 import { AnimesFBService } from 'src/app/services/animes-fb.service';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-editar',
@@ -36,7 +35,7 @@ export class EditarPage implements OnInit {
       generos:[this.anime.generos,[Validators.required]],
       totalEp:[this.anime.totalEp],
       assistidosEp:[this.anime.assistidosEp],
-      nota: [this.anime.nota, [Validators.required]],
+      nota: [this.anime.nota],
       imagem: ["", [Validators.required]],
     });
   }
@@ -63,7 +62,7 @@ export class EditarPage implements OnInit {
   editar(){
     this.showLoading("Aguarde...", 10000);
     this.animeFBService
-      .atualizarImagem(this.imagem, this.formEditar.value, this.anime.imageLink)
+      .atualizarImagem(this.imagem, this.formEditar.value, this.anime.imageLink, this.anime.id)
       .then(()=>{
         this.loading.dismiss();
         this.presentAlert("AnimeteK", "Sucesso", "Anime Editado!");
